@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    dynamic:
+      primary: master
+      strict: true
+      datasource:
+        master:
+          url: jdbc:mysql://mysql:3306/domain_machine?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+          username: newcore_dev
+          password: newcore_dev
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          hikari:
+            connection-test-query: SELECT 1
+            connection-timeout: 30000
+            idle-timeout: 600000
+            max-lifetime: 1800000
+            maximum-pool-size: 20
+            minimum-idle: 10
+        clickhouse:
+          url: jdbc:clickhouse://192.168.1.111:30123/default?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true
+          username: default
+          password: ''
+          driver-class-name: ru.yandex.clickhouse.ClickHouseDriver
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

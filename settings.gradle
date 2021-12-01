@@ -1,0 +1,4 @@
+rootProject.name = 'mybatis-plus-clickhouse-integrate'
+include 'mybatis-plus-clickhouse'
+include 'mybatis-plus-clickhouse-test'
+

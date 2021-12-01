@@ -1,0 +1,80 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.0'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+
+version = '0.0.1-SNAPSHOT'
+
+ext {
+    junitJupiterVersion = '5.8.1'
+    lombokVersion = '1.18.22'
+    clickhouseVersion = '0.3.1-patch'
+    mybatisVersion = '2.2.0'
+    mybatisPlusVersion = '3.4.3.4'
+    dynamicDatasourceVersion = '3.5.0'
+}
+
+allprojects {
+    group = 'cloud.aispring'
+    sourceCompatibility = '17'
+
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/public/' }
+        maven { url 'https://maven.aliyun.com/repository/google/' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter/' }
+        mavenCentral()
+        mavenLocal()
+    }
+
+    apply plugin: "io.spring.dependency-management"
+    apply plugin: "org.springframework.boot"
+    apply plugin: "java"
+
+    dependencyManagement {
+        resolutionStrategy {
+            cacheChangingModulesFor 0, 'seconds'
+        }
+        applyMavenExclusions = false
+        generatedPomCustomization {
+            enabled = false
+        }
+    }
+}
+
+subprojects { subproject ->
+
+    dependencies {
+
+//        implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+//        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisVersion"
+        implementation "com.baomidou:mybatis-plus-boot-starter:$mybatisPlusVersion"
+        implementation "com.baomidou:dynamic-datasource-spring-boot-starter:$dynamicDatasourceVersion"
+        runtimeOnly 'mysql:mysql-connector-java'
+        implementation "ru.yandex.clickhouse:clickhouse-jdbc:$clickhouseVersion"
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+        implementation "org.projectlombok:lombok:$lombokVersion"
+        annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+        testImplementation "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
+        testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
+
+project('mybatis-plus-clickhouse-test') {
+    description = 'Mybatis-Plus ClickHouse Test'
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation project(':mybatis-plus-clickhouse')
+    }
+}
+
+
