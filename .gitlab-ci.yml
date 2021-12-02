@@ -8,7 +8,7 @@ build:
   image: gradle
   stage: build
   script:
-    - gradle :mybatis-plus-clickhouse:publishToMavenLocal
+    - gradle :mybatis-plus-clickhouse:publishToMavenLocal -PNEXUS_USERNAME='$NEXUS_USERNAME' -PNEXUS_PASSWORD='$NEXUS_PASSWORD'
 
 deploy:
   image: gradle
