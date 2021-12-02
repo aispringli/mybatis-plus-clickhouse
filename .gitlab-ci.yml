@@ -18,3 +18,4 @@ deploy:
     - master
   script:
     - gradle :mybatis-plus-clickhouse:publish -PNEXUS_USERNAME=$NEXUS_USERNAME -PNEXUS_PASSWORD=$NEXUS_PASSWORD
+      -Psigning.keyId=$NEXUS_SIGNING_KEYID -Psigning.password=$NEXUS_SIGNING_PASSWORD -Psigning.secretKeyRingFile=$NEXUS_SIGNING_FILE

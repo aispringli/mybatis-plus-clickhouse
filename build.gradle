@@ -84,6 +84,7 @@ project('mybatis-plus-clickhouse') {
                 from components.java
                 pom {
                     name = 'mybatis-plus-clickhouse'
+                    description = 'Mybatis-Plus ClickHouse Update and Delete'
                     url = 'https://www.aispring.cloud'
                     licenses {
                         license {
@@ -122,6 +123,10 @@ project('mybatis-plus-clickhouse') {
         if (JavaVersion.current().isJava9Compatible()) {
             options.addBooleanOption('html5', true)
         }
+    }
+
+    signing {
+        sign publishing.publications.mavenJava
     }
 }
 
