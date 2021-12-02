@@ -17,4 +17,4 @@ deploy:
   only:
     - master
   script:
-    - gradle :mybatis-plus-clickhouse:publish -PNEXUS_USERNAME='$NEXUS_USERNAME' -PNEXUS_PASSWORD='$NEXUS_PASSWORD'
+    - gradle :mybatis-plus-clickhouse:publish -PNEXUS_USERNAME=$NEXUS_USERNAME -PNEXUS_PASSWORD=$NEXUS_PASSWORD
