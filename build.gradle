@@ -46,9 +46,6 @@ allprojects {
 subprojects { subproject ->
 
     dependencies {
-
-//        implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-//        implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisVersion"
         implementation "com.baomidou:mybatis-plus-boot-starter:$mybatisPlusVersion"
         implementation "com.baomidou:dynamic-datasource-spring-boot-starter:$dynamicDatasourceVersion"
@@ -65,6 +62,66 @@ subprojects { subproject ->
 
     test {
         useJUnitPlatform()
+    }
+}
+
+project('mybatis-plus-clickhouse') {
+    description = 'Mybatis-Plus ClickHouse Update and Delete'
+
+    version = '3.0'
+
+    apply plugin: "signing"
+    apply plugin: "maven-publish"
+
+    java {
+        withJavadocJar()
+        withSourcesJar()
+    }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+                pom {
+                    name = 'mybatis-plus-clickhouse'
+                    url = 'https://www.aispring.cloud'
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'aispring'
+                            name = 'aispring'
+                            email = '3377939225@qq.com'
+                        }
+                    }
+                    scm {
+                        url = 'https://github.com/aispringli/mybatis-plus-clickhouse'
+                    }
+                }
+            }
+        }
+        repositories {
+            maven {
+                def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+                def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots"
+                // 如果version以SNAPSHOT结尾就会上传到快照仓库，如果不是就上传到release仓库
+                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+                credentials {
+                    username = "${NEXUS_USERNAME}"
+                    password = "${NEXUS_PASSWORD}"
+                }
+            }
+        }
+    }
+
+    javadoc {
+        if (JavaVersion.current().isJava9Compatible()) {
+            options.addBooleanOption('html5', true)
+        }
     }
 }
 

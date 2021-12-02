@@ -1,0 +1,20 @@
+image: busybox
+
+stages:
+  - build
+  - deploy
+
+build:
+  image: gradle
+  stage: build
+  script:
+    - gradle :mybatis-plus-clickhouse:publishToMavenLocal
+
+deploy:
+  image: gradle
+  stage: deploy
+  when: manual
+  only:
+    - master
+  script:
+    - gradle :mybatis-plus-clickhouse:publish -PNEXUS_USERNAME='$NEXUS_USERNAME' -PNEXUS_PASSWORD='$NEXUS_PASSWORD'

@@ -5,9 +5,9 @@ spring:
       strict: true
       datasource:
         master:
-          url: jdbc:mysql://mysql:3306/domain_machine?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
-          username: newcore_dev
-          password: newcore_dev
+          url: jdbc:mysql://mysql:3306/user?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+          username: root
+          password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver
           hikari:
             connection-test-query: SELECT 1
